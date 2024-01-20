@@ -60,5 +60,106 @@ spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce
 spring.datasource.username=user
 spring.datasource.password=password
 
+Inversion of Control: Create and manage objects, we have spring container which is like an object factory , for example we want to talk to a create coach then our app calls the spring container
+which contains all the objects of Coach based on our reference it gives out the required coach objects so here the spring container does two things
+1.IOC 2.Dependency Injection: Inject Object Dependencies(Example: We call a car factory so the car factory assembles all the parts required by the car and gives me the object so here dependency injection means it assembles all the helper components of an object and gives me the wholesome object)
+Configuring Spring Container:
+1.xml configuration(legacy) 2.Java Annotations 3.Java Source Code
+
+Example: We have a democontroller and the controller wants to use the Coach object so here we have to inject the coach in Controller
+There are multiple types of injections, main one's are
+1.Constructer Injection : recommended: highly recommended when you have required dependencies
+2.Setter Injection: recommended if there are optional dependencies and default methods can be provided
+3.Field Injection: not recommended by Spring team as it makes the code harder to unit test, inject dependencies by setting field values
+on our class directly even private fields and accomplished by java reflection so there is no need of constructors or setters
+
+
+
+
+Autowiring: Spring uses autowiring for dependency injection, whenever it is mentioned as autowired it will look for that
+particular class or interface and will inject automatically, When we take the Coach example Spring will scan for @Component annotation and it will get that reference and inject
+@Component: it marks the class as Spring bean which is regular Java class that is managed by Spring and also @Component makes the bean available for dependency injection, if the class has @Component then it will automatically register the beans in Spring container
+@Autowired: Tells the spring to inject the dependency and it is optional when the interface has only one implementation
+
+@SpringBootApplication : Enables AutoConfiguration, Component Scanning, Additional Configuration
+So @SpringBootApplication annotation has
+@EnableAutoConfiguration: Enables SpringBoot Auto Configuration Support
+@ComponentScan: Enables component scanning of current package and also scans sub packages
+@Configuration: able to register extra beans with @Bean or import other configuration classes
+
+@Qualifier: If there are multiple implementations of Coach then inorder to tell spring which implementation to pickup we use Qualifier annotation
+and we pass bean id which is the same as classname except that the first letter is small
+
+@Primary: If there are multiple coach implementations we can make one of the Coach as primary by adding @Primary annotation
+and the Spring brings it up so now we can get rid of the Qualifier annotation.Example here we made TrackCoach as primary
+
+If we use @Qualifier and @Primary then @Qualifier takes higher priority
+
+LazyInitiatlization:
+@Lazy: @Lazy annotation to be added at the respective class level.Here we have added for BaseBallCoach
+By default whenever our application starts all beans are initialized like all components are scanned and spring will create an instance of each of it and make them available
+So instead of initializing all components and creating instances for them we can also do Lazy initialisation where spring will create the instances
+if and only if the bean is needed for dependency injection or it is explicitly requested.
+Lazy Initialisation at global level: We can add the prop spring.main.lazy-initiation=true to make all beans lazy
+and whenever we access the endpoint then spring will determine dependencies then creates the respective dependencies
+Adv: create objects when needed, helps faster start up time if there are many components
+Disadv: Discovering configuration issues becomes tough as it only creates objects when called by endpoint, have to make sure there is enough memory when all beans are creates at once,
+
+Bean Scopes: Defines lifecycle of bean, how long it is created, is it shared, how many instances are creates
+By default the scope of the bean is SINGLETON : Here only single bean is created and cached in memory , all dependency injections refer to that same bean so for example
+I have created two Coach objects in the controller and when I am referring to that they both point to the same CricketCoach bean stored in the memory
+We can explicitly mention the scope using @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) used in CricketCoach Class
+Bean Scopes:
+SINGLETON - default scope, only one instance of bean is created and that is shared
+PROTOTYPE - creates a new bean for each request
+REQUEST - scoped to an http web request .Only used for web apps
+SESSION - scoped to an http web session .Only used for web apps
+GLOBAL-SESSION - scoped to global http web request .Only used for web apps
+
+Bean Lifecycle: When Container is started beans are created , injected wherever necessary , internal processing occurs and then we have our own business logic and at last the beans are destroyed.
+Bean Lifecycle Methods: Methods where we can add our own business logic during creation or destruction of beans
+@PostContruct: After inititiation we can add our logic using this annotation
+@PreDestroy: We can add logic which executed before beans are destroyed i.e when application is stopped
+The above are used in CricketCoach class, pls refer the same.
+
+
+Prototype Beans and Destroy Lifecycle
+There is a subtle point you need to be aware of with "prototype" scoped beans.
+For "prototype" scoped beans, Spring does not call the destroy method. Gasp!
+
+---In contrast to the other scopes, Spring does not manage the complete lifecycle of a prototype bean: the container instantiates, configures, and otherwise assembles a prototype object, and hands it to the client, with no further record of that prototype instance.
+Thus, although initialization lifecycle callback methods are called on all objects regardless of scope, in the case of prototypes, configured destruction lifecycle callbacks are not called. The client code must clean up prototype-scoped objects and release expensive resources that the prototype bean(s) are holding.
+
+Prototype Beans and Lazy Initialization
+Prototype beans are lazy by default. There is no need to use the @Lazy annotation for prototype scopes beans.
+
+@Configuration: Instead of using spring component annotation for spring to create a bean we can use
+Configuration at Class level which is used to make spring configuration to our class then we use
+@Bean at method level which is used to configure the bean , here we manually create the object and return the instance of it, here the beanid
+defaults to the method name and then we inject the bean to the Controller. Refer SwimConfig Class for reference.
+
+Use Case of Spring Bean: To make an existing third party class available for spring framework as we do not have access to that third party class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

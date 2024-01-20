@@ -12,78 +12,89 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class DEmoController {
-//    @Autowired
+     //    @Autowired
+    //defining a private field for dependency injection
     private Coach mycoach;
 
-//    private Coach anotherCoach;
+    //defining a constructor for constructor injection
+    //Dependency Injection
 
-    //using configuration
+    //----------------Constructor Injection---------------------------------
     @Autowired
     private DEmoController(@Qualifier("swimCoachyam") Coach coach)
     {
         System.out.println("in constructor  " +getClass().getSimpleName());
         mycoach=coach;
-//        anotherCoach=anotherCoach1;
+
+    }
+    /*
+---------------------------Setter Injection---------------------------------
+setter injection : recommended if there are optional dependencies and default methods can be provided
+
+    @Autowired
+    private void setMycoach(Coach coach)
+    {
+        mycoach=coach;
+    }
+----------------------------Field Injection----------------------------------
+    Field injection which is not recommended due to unit test case issues, circular dependency problems, null pointer exception can also occur
+    @Autowired
+    private Coach mycoach;
+
+----------------------------Constructor Injection------------------------------
+    constructor injection : highly recommended for all dependencies
+    @Autowired
+    private DEmoController(Coach coach)
+    {
+        mycoach=coach;
+    }
+
+-----------------------------USING QUALIFIER-----------------------------------
+    @Autowired
+    private DEmoController(@Qualifier("tennisCoach") Coach coach)
+    {
+        mycoach=coach;
+    }
+
+
+----------------------------- PRIMARY  -----------------------------------
+using primary- provide primary annotation in one of the implementation class
+
+---------------------------- EXAMPLE FOR BEAN SCOPE ----------------------------------------------------
+
+    Bean Scope: SINGLETON
+    private Coach mycoach;
+    private Coach anotherCoach; //using configuration
+    private DEmoController(@Qualifier("swimCoachyam") Coach coach,@Qualifier("swimCoachyam") Coach anotherCoach)
+    {
+        System.out.println("in constructor  " +getClass().getSimpleName());
+        mycoach=coach;
+        anotherCoach=anotherCoachh;
+        here both mycoach and anotherCoach refer to same SwimCoach instance in container as by default scope of bean is singleton
+    }
+
+    Bean Scope: PROTOTYPE
+
+    @Autowired
+    private DEmoController(@Qualifier("cricketCoach") Coach coach,
+                           @Qualifier("cricketCoach") Coach anotherCoach1)
+    {
+        System.out.println("in constructor  " +getClass().getSimpleName());
+        mycoach=coach;
+        anotherCoach=anotherCoach1;
+        here both mycoach and anotherCoach refer to different cricketcoach instance in container
 
     }
 
-    //Field injection which is not recommended due to unit test case issues, circular dependency problems, null pointer exception can also occur
-//    @Autowired
-//    private Coach mycoach;
+--------------------------To verify scope------------------------------------
 
+    @GetMapping("/check")
+    public String checking()
+    {
+        return "Companing "+ (mycoach==anotherCoach);
+    }
 
-    //constructor injection : highly recommended for all dependencies
-//    @Autowired
-//    private DEmoController(Coach coach)
-//    {
-//        mycoach=coach;
-//    }
-
-
-
-//using qualifier
-
-//    @Autowired
-//    private DEmoController(@Qualifier("tennisCoach") Coach coach)
-//    {
-//        mycoach=coach;
-//    }
-
-
-
-//using primary- provide primary annotation in one of the implementation class
-
-
-//example for scope
-
-//    @Autowired
-//    private DEmoController(@Qualifier("cricketCoach") Coach coach,
-//                           @Qualifier("cricketCoach") Coach anotherCoach1)
-//    {
-//        System.out.println("in constructor  " +getClass().getSimpleName());
-//        mycoach=coach;
-//        anotherCoach=anotherCoach1;
-//
-//    }
-
-
-//setter injection : recommended if there are optional dependencies and default methods can be provided
-
-//    @Autowired
-//    private void setMycoach(CricketCoach coach)
-//    {
-//        mycoach=coach;
-//    }
-
-
-
-//to verify scope
-
-//    @GetMapping("/check")
-//    public String checking()
-//    {
-//        return "Companing "+ (mycoach==anotherCoach);
-//    }
+     */
 
 }
 

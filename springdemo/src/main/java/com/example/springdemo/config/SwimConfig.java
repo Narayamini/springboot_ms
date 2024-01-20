@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwimConfig {
 
-    @Bean("swimCoachyam")
+    @Bean("swimCoachyam") // here we are providing the custom bean id
     public Coach swimCoach()
     {
         return new SwimCoach();
