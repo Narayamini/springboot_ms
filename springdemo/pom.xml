@@ -5,14 +5,21 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
+		<!-- Maven defaults are mentioned in Springboot starter
+		parent and also the version which we mention for the parent
+		can be inherited by the starter dependencies which we mentioned below, some more benefits
+		of the spring boot parent are provides default maven configuration,dependency management -->
 		<version>3.1.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<!--Project Object Model -> Project Metadata ,dependencies, plugins-->
 	<groupId>com.example</groupId>
 	<artifactId>springdemo</artifactId>
+	<!-- here we can also mention the packaging - (jar or war)-->
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springdemo</name>
 	<description>Demo project for Spring Boot</description>
+	<!-- override the default properties using properties tag as shown below-->
 	<properties>
 		<java.version>17</java.version>
 	</properties>

@@ -1,0 +1,64 @@
+mnvw, mnvw.cmd (mvnw clean compile test)- allows to run a Maven Project ( Maven wrapper files - automatically downloads the correct version of Maven and runs for us)
+If Maven is already installed on computer then no need of the above mentioned Maven wrapper files we can simple use(mvn clean)
+starter dependencies are a group of dependencies
+spring-boot-maven-plugin in pom file - helps us to package our code to war or jar and we can use this to run our application as follows
+./mvnw package
+./mvnw spring-boot:run
+
+@Value - to inject the property from application.properties to the class, example as below
+application.properties - my.name=Harry Potter
+Class level injection -
+@Value("${my.name}")
+private String myName;
+
+When we place the static content in resources-> static folder, spirngboot will load them automatically for given app
+
+src/main/webapp directory cannot be used if our application is package as a JAR , it only works with WAR packing and is ignored by build tools if it mentioned as jar
+
+Templates: Springboot includes auto configuration for the following template engines and will load templates from /templates directory: FreeMarker ,ThymeLeaf, Mustache
+
+spring-boot-devtools(we have to add the dependency) - restarts the springboot application when the code is updated instead of we manually restarting
+Additional settings in intellij to enable devtools apart from adding the dependency : compiler->build project automatically, preferences->advancedsettings-> allow auto make to start
+
+spring-boot-actuator(we have to add the dependency) - exposes endpoints to monitor health and manage our application
+It automatically exposes endpoints for metrics and the endpoints are prefixed with /actuator:
+/health: health info of app-gives status whether app is up or down , we can also customize the health status based on business logic, by default only health endpoint is exposed
+/info: Provides more info on app and the behaviour is also customisable, to expose info endpoint we have to add management.endpoints.web.exposure.include=health,info and management.info.env.enabled=true in app.props
+default info is empty and we have to customise this by adding following in app.props, anything after info. props is considered by the endpoint
+(info.app.name=Name of app, info.app.description=Bank Application info.app.version=1.0.0 ) returns JSON object
+/auditevents: Audit events for app
+/beans: List of all beans registered in spring application context
+/mappings: List of all @RequestMapping paths
+There are around 10+ spring boot actuator endpoints for more info: search in spring documentation, to expose all endpoints add management.endpoints.web.exposure.include=* in app.props
+We can use spring security for not exposing all this info for everyone, user have to authenticate himself for getting the info, default username is user and password is seen in console
+to override the given username and password we can configure spring.security.user.name, spring,security.user.password in app.props
+we can also exclude endpoints - management.endpoints.web.exposure.exclude=health,info, we can also customise spring security by retrieving username, password from db
+
+Running SpringBoot from Command Line:
+1.java -jar jarname -> first we package the code using mvnw package and then we run the generated jar by taking it from target folder
+2.mvnw springboot:run
+
+Spring boot has 1000+ configurable props which are grouped into core, web, security, data, actuator, integration, devtools, testing
+Core Properties : here we are setting logging level for given package names
+different logging levels- TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF
+logging.level.org.springframework=DEBUG
+logging.level,org.hibernate=TRACE
+logging.level.com.luv2code=INFO
+logging.file.name=mylog.log
+logging.file.path=I://myapp//applog
+Web Properties:
+server.port=7070
+server.servlet.context-path=/myapp {Example : http://localhost:7070/myapp/endpointname}
+server.servlet.session.timeout=15
+Actuator Properties:
+management.endpoints.web.base-path=/customactuator
+Security Properties:
+spring.security.user.name=user
+spring.security.user.password=password
+Data Properties:
+spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce
+spring.datasource.username=user
+spring.datasource.password=password
+
+
+
