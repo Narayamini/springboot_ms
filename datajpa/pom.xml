@@ -54,3 +54,4 @@
 	</build>
 
 </project>
+<!-- added MySQL Driver, Spring Data JPA, Spring web, Spring devtools -->

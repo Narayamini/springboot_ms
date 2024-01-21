@@ -6,10 +6,25 @@ import jakarta.persistence.*;
 @Table(name="Student")
 public class Student {
 
+    //define fields
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
+
+    @Column(name="first_name")
+    private String firstName;
+
+    @Column(name="last_name")
+    private String lastName;
+
+    @Column(name="email")
+    private String email;
+
+    //defining constructors
+
+    public Student() {
+    }
 
     public Student(String firstName, String lastName, String email) {
         this.firstName = firstName;
@@ -17,18 +32,7 @@ public class Student {
         this.email = email;
     }
 
-    public Student() {
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
+    //defining getters and setters
 
     public int getId() {
         return id;
@@ -62,14 +66,15 @@ public class Student {
         this.email = email;
     }
 
-    @Column(name="first_name")
-    private String firstName;
-
-    @Column(name="last_name")
-    private String lastName;
-
-    @Column(name="email")
-    private String email;
-
+    //defining toString() method
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 
 }

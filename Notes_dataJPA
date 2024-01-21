@@ -1,0 +1,63 @@
+Hibernate: Hibernate is a framework which we can use to save or retrieve our Java objects in database,uses ORM
+JPA: Jakarta Persistence API - it is a standard API for ORM, so it is a defined set of interfaces and we can
+implement them in our own way. One such implementation is Hibernate we have many such as EclipseLink and Hibernate
+is the most famous and default implementation of JPA in Springboot. Now because of JPA there is no vendor lock and we can swap the vendor implementation
+
+Hibernate JPA uses JDBC for the functionality in the background to communicate with the db so we can say Hibernate JPA is a one more layer on top of JDBC
+
+MySQL DataBase includes two components - MySQL Database Server(main engine, this is where we create/update data and the data is stored), MySQL Workbench(GUI for interacting with the db)
+
+Have provided the sql starter scripts to create a user and also create a table in sql-scripts folder
+
+EntityManager component from JPA which is used to CRUD operations, Based on the configs Springboot
+will create beans for DataSource, EntityManager and we can inject them
+
+Entity class: Java class that is mapped to a db table i.e ORM
+firstName in Entity class is mapped to first_name in db table and the following are the rules for Entity Class
+1.Must have @Entity annotation
+2.Must have a public or protected no args constructor
+
+@Table(name="student") -> table of name student will be mapped, default same as class name
+@Column(name="id") -> column of name id will be mapped in the student table (it is optional), default name same as field name
+@Id -> Used to declare primary key which is a unique key to identify each row in a table, it must be unique value and cannot contain NULL values
+@GeneratedValue(strategy=GenerationType.IDENTITY) -> Here as we mention the primary key as @Id now we have to mention how that is generated and we can do this using the GeneratedValue annotation
+and this will be generated and managed by db
+Different Generated Values Strategy
+GenerationType.AUTO -> pick an appropriate strategy for particular db
+GenerationType.IDENTITY -> assign primary keys using db entity column
+GenerationType.SEQUENCE -> assign primary keys using a db sequence
+GenerationType.TABLE -> assign primary keys using an underlying db to ensure uniqueness
+Custom Generation Strategy : Inorder to Create a Custom Generation Strategy we create implementation of org.hibernate.id.IdentifierGenerator
+and override the method public Serialization generate(..)
+
+DAO (Data Access Object) : Acts as an interfacing with db, this is a common design pattern, so here our application talks to DAO and DAO interacts with DB
+so this is like a helper class which helps us to talk to db and DAO uses JPA Entitymanager to communicate with the db and perform certain CRUD operation
+in turn the Entity Manager needs the datasource to connect to db where here the datasource defines the db connection info
+
+JPA Entity Manager and Datasource are automatically created by SpringBoot based on the configuration we provide in pom file and also the application.props
+We can autowire/inject this created JPA Entity Manager in our DAO Class, so here the final architecture is DAO needs Entity Manager, Entity Manager needs Datasource to connect o DB
+
+@Transactional : This annotation is used to automatically begin and end transaction in JPA code:@Transactional is a Spring annotation that can be applied to methods or classes to indicate that the annotated code should be executed within a transaction. When Spring encounters the @Transactional annotation, it automatically creates a transaction around the annotated code and manages the transaction lifecycle.
+@Repository :  Sub annotation of Component, @Component has multiple sub annotations like @RestController, @Repository and here @Repository is used to DAO objects
+When the DAOImpl Class is marked as @Repository then spring will automatically register the DAO implementation and also it makes the JDBC related checked exceptions to unchecked exceptions
+
+JPQL : JPA Query Language which is used for retrieving objects , similar to SQL however the JPQL is based on entity name and entity fields
+
+Creating tables using Java code using JPA :So we have our Java code which we run it through JPA/Hibernate and that creates the SQL script and runs it through db
+using spring.jpa.hibernate.ddl-auto=create in app.props where it will run our app, drop the existing tables and create them
+Following are the different values we can set for the property spring.jpa.hibernate.ddl-auto:
+create -> db tables are first dropped and then are followed by creation
+create-only -> db tables are only created
+update -> update the db tables schema (ex: when we add new fields ..)
+drop -> db tables are dropped
+create-drop -> db tables are first dropped and then are followed by creation , on app shutdown the tables are again dropped
+validate -> validate the db tables schema
+none -> no action will be performed
+
+
+
+
+
+
+
+
