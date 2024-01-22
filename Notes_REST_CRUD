@@ -1,0 +1,143 @@
+REST - Representational State Transfer - light weight approach for communicating between apps and it is language independent and
+also we can use any data format for communication most popular one's are using xml, json..
+
+JSON - JavaScript Object Notation -lightweight data format for storing and exchanging data - which is a plain text and it is language independent
+JSON Values - Numbers, String, Boolean, Nested JSON, null, Array
+
+Common use of REST is over HTTP Methods
+HTTP METHODS - CRUD OPERATION
+POST - Create a new entity
+GET - Read a list of entities or single entity
+PUT - Update the existing entity
+DELETE - Delete existing entity
+
+When we are sending request to a service we send the HTTP Request Message and receive HTTP Response Message
+HTTP Request Message contains
+Request line -> HTTP Command( GET/POST/PU/DELETE )
+Header Variables -> Additional info like the request metadata
+Message Body -> Body of the message
+HTTP Response Message contains
+Request line -> Server protocol and status code( 200/404....)
+Header Variables -> Additional info like the response metadata(Ex: format of the data sent, length/size of data..)
+Message Body -> contents of the message
+The message format is described by MIME (Multipurpose Internet Mail Extension), the type of content returned by the server is described in this format
+Basic Syntax: type/sub-type (Ex: text/html, text/plain, application/json, application/xml)
+
+HTTP Status Codes:
+100-199 -> Informational
+200-299 -> Successful
+300-399 -> Redirection
+400-499 -> Client error
+500-599 -> Server error
+
+To play with http methods/json in postman - https://jsonplaceholder.typicode.com/
+
+@RestController - For defining the Rest Controller
+@RestMapping("/test) - For Adding the Prefix to the URL
+@GetMapping("/hello) - For adding the GET URL
+
+Java JSON Data Binding also known as Serialization/Deserialization or Marshalling/Unmarshalling:
+Data Binding is the process of converting JSON to JAVA POJO or vice versa, so we read the contents of json and populate Java object with that or vice versa
+
+JSON Data Binding with Jackson:
+Spring uses jackson behind the scenes for data binding and this dependency comes through spring-web which we add as the starter
+Jackson uses appropriate getter setter methods to handle this process of conversion
+
+JSON to POJO : To convert JSON to POJO , jackson calls the appropriate setter methods on the POJO
+so we have to define the setter methods in camel case of the field inorder for the jackson to identify the set methods and call on POJO
+here Jackson doesn't access any other private fields except for the setter methods
+
+POJO to JSON: Jackson calls the getter methods on the POJO and generate a json and sends the json string to a file or a memory
+
+When we are using Spring REST applications, spring will automatically handle Jackson integration where if we are sending the JSON data to the rest controller it is converted to POJO
+and the resulted POJO is converted to JSON and will be send as response, everything happens automatically behind the scenes
+
+Path Variable: to get the student details wrt student id then we will call api/student/{studentid} and here studentid is the Path Variable
+@PathVariable:is the annotation used for PathVariable
+
+@ExceptionHandler : We can define exception handler methods using @ExceptionHandler annotation, the exception handler
+will return the ResponseEntity which is a wrapper for HTTP response object , where it provides the fine grained control to specify:
+HTTP status code, HTTP headers and Response body
+
+Global Exception Handling:We need global exception handlers as the above @ExceptionHandler is only inside a specific Rest Controller
+but we need to do this for globally as we would have multiple rest controllers which will promote reuse and centralizes exception handling
+@ControllerAdvice: similar to interceptor/filter which is used for following and is a real time use of AOP, the following are the functionalities of @ControllerAdvise
+1.Pre process requests to controllers
+2.Post process responses to handle exceptions
+3.Perfect for global exception handling
+So here first the requests comes to our server app then firstly it goes through ControllerAdvice instead of the rest service there we can write some preprocessing logic which should happen before it goes to controller
+then it goes to the controller, the controller processes the request and before sending response to client it again goes back to the ControllerAdvise then the ControllerAdvise does exception handling if any then sends back the response to client
+
+Spring REST API Design Best Practices:
+1.Identify requirements: who will use our api/how they will use it
+2.Identifying the entities and resource url's to be used, here we have to look for the most prominent noun for example
+the team has asked us to develop a Rest API to access employee info then here the prominent noun is employee so the
+best practice is to use plural form of resource or entity and use employees: /api/employees
+3.Use HTTP Methods to assign an action on resource
+Bad Practice to define Rest URL's : Don't use actions in the endpoint URL : Ex: /api/updateEmployee and have to use HTTP endpoint o define actions
+
+
+@Service: This annotation is used to define the Service Layer Class which sits between the Employee DAO and the controller and is there according to the
+Service Facade Design Pattern and this layer is for the immediate business logic and is used to integrate data from different DAO layers
+Example we have to pull employee data from different data sources like payroll dao, skills dao and then this is integrated and pulled together in Service Layer
+@Service is also part of the Component annotation as @RestController and @Repository
+
+Service Layer Best Practice: Applying @Transactional at service layer is considered as best than applying at the DAO layer
+
+@RequestBody : we add this annotation if the coming request body is JSON inorder for the spring to take care of data binding
+
+All the above code is for the standard JPA process , the below architecture is for the Spring Data JPA where instead of having the so much boiler plate code we are reducing it
+Spring Data JPA provides the interface JPARepository where we have all the common used CRUD methods and many more , all these are exposed , so here we just have to pass the Entity and the primary key
+and most of the work is done, so no need for an IMPL Class, we also have many advantages by using Spring Data JPA as follows
+1.Extending and adding custom queries with JPQL
+2.Query Domain Specific Language(Query DSL)
+3.Defining Custom Methods(Low level coding)
+When we are using JPARepository we can remove @Transactional as the JPARepository takes care of it
+
+Sprint Data REST : Spring project which helps us to get rid of the boiler plate code for RestController and it gives all the code for basic CRUD features by using the
+existing JPARepository, it gives all the given below example endpoints for free without needing to code
+
+1.POST - /employees - create the new employee
+2.GET - /employees - get all employees
+3.GET - /employees/{employeeId} - get employee by employeeid
+4.PUT - /employees/{employeeId} - update employee by employeeid
+5.DELETE - /employees/{employeeId} - delete employee by employeeid
+
+For the Spring Data REST to work we have to add the spring data rest dependency to our pom.xml file
+and then that's it the spring data rest with scan the code and get the class extending JPARepository
+and then it takes the entity passed in jparepository and creates the end points by adding s to the entity
+for example : Employee is our entity then it creates endpoints in /employees format
+
+Spring Data REST endpoints are HATEOAS compliant
+HATEOAS: Hypermedia as the Engine of Application State, here hypermedia is termed as providing the kind of metadata for the rest endpoints
+if the endpoint is returning a collection then it provided metadata in the response like about the size of page, no of elements..
+and if the response is not a collection it gives the general metadata of endpoint like http://localhost:8080/employees/3...
+HATEOAS uses Hypertext Application Language (HAL) data format which is the format of JSON data it returns in response
+
+Spring Data REST also has advance features like:
+1.Pagination, sorting and ascending
+2.Extending and adding custom queries using JPQL
+3.Query Domain Specific Language (Query DSL)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
