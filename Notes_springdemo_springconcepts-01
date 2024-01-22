@@ -11,7 +11,7 @@ Class level injection -
 @Value("${my.name}")
 private String myName;
 
-When we place the static content in resources-> static folder, spirngboot will load them automatically for given app
+When we place the static content in resources-> static folder, springboot will load them automatically for given app
 
 src/main/webapp directory cannot be used if our application is package as a JAR , it only works with WAR packing and is ignored by build tools if it mentioned as jar
 

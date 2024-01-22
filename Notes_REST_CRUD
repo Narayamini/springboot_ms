@@ -105,7 +105,7 @@ existing JPARepository, it gives all the given below example endpoints for free 
 
 For the Spring Data REST to work we have to add the spring data rest dependency to our pom.xml file
 and then that's it the spring data rest with scan the code and get the class extending JPARepository
-and then it takes the entity passed in jparepository and creates the end points by adding s to the entity
+and then it takes the entity passed in jparepository and creates the end points by adding s to the entity and making the first letter of the entity class to lowercase
 for example : Employee is our entity then it creates endpoints in /employees format
 
 Spring Data REST endpoints are HATEOAS compliant
@@ -118,6 +118,32 @@ Spring Data REST also has advance features like:
 1.Pagination, sorting and ascending
 2.Extending and adding custom queries using JPQL
 3.Query Domain Specific Language (Query DSL)
+
+Inorder to Customise the Spring Data Rest base path we can update the following in the app.props
+spring.data.rest.base-path=/api
+
+If we want to expose the different endpoint name instead of the entity name we can define as following in the repository class
+@RepositoryRestResource(path="members")
+
+By Default Spring Data REST will return the first 20 elements
+Page size=20 inorder to navigate the different pages we can pass as following
+http://localhost:8080/employees?page=0
+http://localhost:8080/employees?page=1...
+
+There are many configs which we can set for Spring Data Rest like following
+spring.data.rest.base-path=/api
+spring.data.rest.default-page-size
+spring.data.rest.max-page-size and many more ...
+
+We can also perform sorting by using following
+Sort by last name: http://localhost:8080/employees?sort=lastName
+Sort by last name desc: http://localhost:8080/employees?sort=lastName,desc
+Sort by last name then first name desc: http://localhost:8080/employees?sort=lastName,firstName,desc
+
+
+
+
+
 
 
 
