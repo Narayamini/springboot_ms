@@ -1,0 +1,37 @@
+Spring Security Model:Defines a Framework for Security, it is implemented using servlet filters( The filter is used to pre-process the request and Post-processing the response. A Filter is a java object that performs the Filtering
+task on either the request to a resource or on the response from a resource or both.)in the background and also these servlet filters can route
+the web requests based on security logic
+Two methods of securing the app:
+1.declarative -> here we define the security configuration class for security constraints which separate the application code and the security code using
+@Configuration annotation
+2.programmatic -> Spring security provides an API for custom application coding where we can extend this framework and then write our specific security constraints for our own business logic/app requirements
+So here spring security acts as the interceptor between the server and the client and whenever someone is
+trying to access our web server it verifies the security configuration, user passwords roles and allows the client to access us also determines the authorization
+
+To enable spring boot security we add the security dependency in pom.xml, then springboot automatically secures all endpoints
+default username - user password -shown in console
+To change default user and password, we can mention below in app.props:
+spring.security.user.name=user
+spring.security.user.password=password
+
+For authentication and authorization we can do the following
+Store creds in-memory, use JDBC and store in db, use LDAP, use Custom/Pluggable code.....
+
+Having Spring Security setup by providing users, passwords and roles:
+1.Create Spring Security Configuration class with @Configuration annotation: In spring security configuration
+passwords are stored in a specific format : {id}encodedPassword so here the id - is the encoding algo will be used for this password to encrypt and we can specify the encryption strategy as follows
+1.noop - plain text- no encryption
+2.BCrypt - bcrypt password hashing which is one way encryption/hashing , here we take the password and encrypt using bcrypt algo
+
+2.Add users, passwords, roles in the configuration class which is in-memory storage
+
+Now if we have created the configuration and added InMemoryUserDetailsManager then spring security will not consider the username and password mentioned in app.props but it will take it from the inmemory details
+
+
+
+
+
+
+
+
+
