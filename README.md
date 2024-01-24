@@ -7,3 +7,4 @@ datajpa : Contains the code for performing and experimenting CRUD operations usi
 spring-boot-rest-crud : Implements CRUD by exposing endpoints without db connection and also contains Exception Handling at Rest Controller level and also Global Exception Handling
 spring-boot-rest-crud-datajpa - Implements CRUD by exposing endpoints and connecting to DB using Standard JPA Implementation and also using Spring Data JPA project
 spring-boot-rest-crud-spring-data-rest - Implements CRUD by exposing endpoints using Spring Data REST project and connecting to DB
+spring-boot-rest-security-Implemented Spring Boot Security Concepts - In Memory Security without accessing db(passwords - both in plain text, bcrypt), Security using db(JDBC) and passwords storage in plaintext and bcryted, Custom Tables Implementation.
