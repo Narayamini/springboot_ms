@@ -27,6 +27,64 @@ passwords are stored in a specific format : {id}encodedPassword so here the id -
 
 Now if we have created the configuration and added InMemoryUserDetailsManager then spring security will not consider the username and password mentioned in app.props but it will take it from the inmemory details
 
+Restrict endpoints access based on roles:
+
+We have to create a SecurityFilterChain Bean in our class and then create authoriseHttprequests method
+and we are authorising based on roles.
+requestMatchers(httpmethod to match on, endpoint).hasAnyRole(comma separated list of roles)
+or requestMatchers(httpmethod to match on, endpoint).hasRole(comma separated list of roles)
+and also have to mention to use basic http authentication
+
+Cross Site Request Forgery(CSRF):Spring security can protect us from CSRF which we dont need it for Stateless Rest Api's and this is especially for web requests via html forms
+
+Using Springboot REST API Security with DB:
+
+1.Here springboot security provides easy integration with the db where we can store our user's usernames ,passwords and roles
+here spring security provides two types of db integration
+a.Default integration provided by spring in which we can write less code and spring takes care of everything, just that
+the db schema that we have to maintain is strict which should contain two tables( have to contain same names and columns as mentioned below)
+  1.users - username, password, enabled
+  2.authorities(same as roles) - username, authority //for authority spring security uses ROLE_rolename format
+b.We can setup custom configuration based on our business logic
+Quicktip: Inorder to view the schema structure in sql workbench , we can navigate to Database ->
+ReversE Engineer and proceed to final step/tab
+
+Using bcrypt algo to store passwords: Bcrypt algo performs one way encrypted hashing where it adds a random salt to the password
+for additional protection and includes support to defeat brute force attacks.
+Here the bcrypto algo generates 60 digit password all time regardless of plain text length of password we provide
+
+When storing passwords using the bcrypt algorithm, a randomly generated salt is added to the password before hashing it. The salt is then stored along with the hash in the database.
+During the login process, when a user enters their password, the same bcrypt algorithm is applied to the entered password, using the stored salt. The resulting hash is then compared with the hash stored in the database. If the hashes match, it means that the entered password is correct, and the user is granted authorization.
+Bcrypt includes the salt as part of the generated hash, so there's no need to separately retrieve and compare the stored salt. The algorithm automatically extracts the salt from the stored hash and uses it to generate the hash for the entered password. By doing this, bcrypt ensures that the generated hash will always be the same for a given password and salt combination.
+By comparing the generated hash with the stored hash, the system can determine whether the entered password is correct without actually storing the plaintext passwords in the database.
+
+Using Custom Tables for Spring Security:
+For spring security schema customization we have to do the following:
+1.Tell Spring how to query our custom tables
+2.Provide query to find user by user name
+3.Provide query to find authorities/roles by user name
+#TODO
+
+For Spring Boot REST API Security, how to add security support using JPA/Hibernate:
+It handles Spring Security using JPA/Hibernate. Demo includes Hibernate, database support, encrypted passwords
+
+PDF
+
+https://www.luv2code.com/bonus-lecture-spring-boot-rest-security-jpa-hibernate-bcrypt-pdf
+Source Code:https://www.luv2code.com/bonus-lecture-spring-boot-rest-security-jpa-hibernate-bcrypt-code
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
