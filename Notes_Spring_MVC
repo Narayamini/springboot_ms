@@ -1,0 +1,18 @@
+Spring Boot - Spring MVC with Thymeleaf:
+
+Thymeleaf - Java templating engine - used to produce html views on web apps- so here the web server sends the request to Spring MVC, then Spring MVC models the data sends it to thymeleaf
+now thymeleaf uses that data and sends back the generated HTML pages.Inorder to configure thymeleaf we have to create a Spring MVC controller
+so here in the controller as we will be adding thymeleaf dependency , it will be autoconfigured and then at last we will return the template which is of type model, that same template we have to create in spring resources
+folder and inside templates folder . if it is a webpage , it will be ending with .html
+
+Thymeleaf template is nothing but a html file with thymeleaf expressions , there are additional features for thymeleaf like
+1.looping and conditionals, 2.CSS and Javascript integration, 3.Template layouts and fragments
+
+When we hit the server, we can see the html page rendered by the thymeleaf and inorder to see the rendered oage in html format we can right click and view page source
+
+CSS and Thymeleaf:
+
+
+
+
+
