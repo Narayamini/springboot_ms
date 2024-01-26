@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- above is the xml namespace for thymeleaf -->
+<head>
+  <title>Hello Buddy</title>
+  <style>.error {color:red}</style>
+  <!-- here error should match with class name given below-->
+</head>
+<body>
+<i>Please fill out the form and the required fields are marked with (*)</i>
+<br><br>
+<form th:action="@{/processForm}" th:object="${customer}" method="POST">
+  First Name: <input type="text" th:field="*{firstName}" />
+  <br><br>
+  Last Name(*): <input type="text" th:field="*{lastName}" />
+  <br><br>
+<!-- Logic to display the error message when it is error
+Here the following condition is if the lastname field has error which is the if condition then
+it will display the error message using errors then the class css file is given to add some style-->
+  Products List: <input type="text" th:field="*{productsList}" />
+  <br><br>
+  Postal Code: <input type="text" th:field="*{postalCode}" />
+  <br><br>
+  Course Code: <input type="text" th:field="*{courseCode}" />
+  <br><br>
+  <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
+  <span th:if="${#fields.hasErrors('productsList')}" th:errors="*{productsList}" class="error"></span>
+  <span th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}" class="error"></span>
+  <span th:if="${#fields.hasErrors('courseCode')}" th:errors="*{courseCode}" class="error"></span>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

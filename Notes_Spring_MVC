@@ -50,8 +50,28 @@ Validation annotation:
 @Size : Size must match the given size
 @Pattern : Must match a regular expression pattern
 @Future/@Past : Date must be in future or past of given date
+@InitBinder : Whitespace is not considered as null when we pass the data so inorder to avoid this , we need to trim whitespace from input fields
+to make sure whitespace , inorder to get rid of this situation we can use @IntBinder which acts as the preproccesor
+where it will preprocess each web request to our controller , method annotated with @InitBinder is executed so we can annotate a method with this
+and trim whitespaces , if string only has white spaces we can make it to null
 
+StringTrimmerEditor- Class in Spring API which can be used to remove leading and trailing whitespaces in a string
 
+Regular Expressions: sequence of characters that define a search pattern, this pattern is used to find or match strings
+
+Spring MVC custom validation:
+Performs custom validation based on the business logic.Example postalCode starts with 500.., so here spring mvc calls custom validation and it returns boolean value for pass/fail
+So here we will be calculating the custom annotation
+
+Creating custom annotation:
+@Constraint(validatedBy={provide the class which contains custom validation logic)
+@Target({ElementType.METHOD, ElementType.FIELD}}) -> where can we apply this annotation either method/field
+@Retention(RetentionPolicy.RUNTIME) - how long to retain, here runtime means Retain this annotation in Java class file i.e put it in byte code and we will process it at runtime
+public @interface CourseCode { -> this is how we define custom annotation in Java and CourseCode is name of annotation
+
+//define the annotation fields in terms of methods which we can pass
+public String value() default "YAM" -> if no value is passed we consider the default value
+public String message() default "must start with YAM"
 
 
 

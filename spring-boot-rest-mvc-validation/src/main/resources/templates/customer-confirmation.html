@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- above is the xml namespace for thymeleaf -->
+<head>
+  <title>Registered</title>
+
+</head>
+<body>
+You are confirmed :<span th:text="${customer.firstName + ' ' +customer.lastName+' '+'with'+customer.productsList+'products'+'  '+customer.postalCode+
+'  '+customer.courseCode}"/>
+</body>
+</html>
