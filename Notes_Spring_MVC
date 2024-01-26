@@ -11,6 +11,54 @@ Thymeleaf template is nothing but a html file with thymeleaf expressions , there
 When we hit the server, we can see the html page rendered by the thymeleaf and inorder to see the rendered oage in html format we can right click and view page source
 
 CSS and Thymeleaf:
+We can implement CSS with thymeleaf in two ways 1.using local css files 2.using remote css files, Springboot will look for static files in resources directory->static
+so we will be creating the css files in the same directory. Basically springboot will search following directories for static resources
+1./META-INF/resources
+2./resources
+3./static
+4./public -> and it will search from top-down so usually we can place the files in either static or public, we can place the 3rd party css libraries like bootstrap in static path and refer that as well
+or we can refer the one from internet as well by giving the path under href
+
+Components of Spring MVC:
+webpages, beans(collection of spring beans(controllers, services..), spring configuration(xml, Annotations or Java)
+Working of Spring MVC : Incoming requests hits Front Controller(this is developed by spring and will be part of spring jar files) this is also knows as dispatcher servlet- >
+this front controller delegates the requests to other objects or items in the system -> so here it sends the requests to Controller and the controller sends the model object to view templates which are the response web pages , view templatest send those web pages to the web browser
+The following are the objects we have to create
+Model : the data object: contains of our app data , we can put spring, objects or the actual data from db in the model, it can be used by the view templates , we can place the data in the model to transfer the data between different spring mvc components
+View:  the html templates
+Controller : the classes where the business logic lays in : Here is where we handle the request, store/retrieve data, place data in model
+In order to read data from the HTML page we pass HttpServletRequest as a method param to the method, so this holds the HTML form data, and we can pass the Model which contains the form data, it comes with the empty but we can add attributes/data to it to hold
+
+@RequestParam - annotation used to bind the passed data from html to the variable and this is as parameter to the method
+GET: whenever we submit the form if its redirecting to the GET URL then it will add the URL?data(ex: http://localhost:8080/process?field1=value1&field2=value..) we submitted while redirecting
+ GET is good for debugging as data comes in URL- there is a limitation on the data length for get
+usually they say 1000 characters so beyond 1000 we can switch to POST as in POST there is no limitation of Data length and also we can send binary data
+@RequestMapping("/hello",method=RequestMethod.GET) === @GetMappping("/hello")
+When we are hitting from browser, browser will always submit GET requests
+
+Inorder to see the form data we can use developer tools -> Network tab -> to see request it will be in Payload
+
+Data binding: automatically setting and retrieving data from Java Object , Spring MVC can make use of daya binding, have implemented Spring MVC with html forms
+implementing radio buttons, check boxes, regular forms fields submission
+
+Spring MVC Validation:
+Java Standard Bean Validation API: Java has a standard Bean Validation API
+Validation annotation:
+@NotNull : Checks that the annotated value is not null
+@Min : Must be a number>=value
+@Max : Must be a number<=value
+@Size : Size must match the given size
+@Pattern : Must match a regular expression pattern
+@Future/@Past : Date must be in future or past of given date
+
+
+
+
+
+
+
+
+
 
 
 

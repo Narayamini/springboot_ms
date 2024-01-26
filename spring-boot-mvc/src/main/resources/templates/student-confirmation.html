@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello Mate</title>
+</head>
+<body>
+Thanks for submitting !
+<br><br>
+Here are your details
+<br><br>
+
+<span th:text ="${student.firstName}"/>
+<!-- here it calls student.getfirstname and student.getlastname -->
+
+<br><br>
+<span th:text="${student.lastName}"/>
+<br><br>
+<span th:text="${student.country}"/>
+<br><br>
+<span th:text="${student.favlang}"/>
+<br><br>
+<!--<span th:text="${student.os}"/>-- instead of displaying as a list here we are displaying in unordedlist with bullets-->
+<ul><li th:each="tempos:${student.systems}" th:text="${tempos}" />
+</ul>
+</body>
+</html>

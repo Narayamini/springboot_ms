@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Hello Mate</title>
+  <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+</head>
+<body>
+<form th:action="@{/processFormv3}" method="GET">
+  <input type="text" name="studentName"
+         placeholder="What's your name" />
+  <input type="submit"/>
+</form>
+
+<!--here we are going to send something to processForm method-->
+</body>
+</html>

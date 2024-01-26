@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello Mate</title>
+    <!-- reference css file and here the @ symbol references to the context path or root path of the app-->
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+</head>
+<body>
+ Welcome to the Spring World !
+<br><br>
+<span th:text ="${param.studentName}"/>
+<!-- here the param is obtained from the html form which we have passed -->
+
+<br><br>
+The message :<span th:text="${message}"/>
+</body>
+</html>

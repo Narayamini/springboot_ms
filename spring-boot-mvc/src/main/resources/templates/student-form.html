@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- above is the xml namespace for thymeleaf -->
+<head>
+    <title>Hello Mate</title>
+</head>
+<body>
+<form th:action="@{/studentconfimed}" th:object="${student}" method="POST">
+   First Name: <input type="text" th:field="*{firstName}" />
+   Last Name: <input type="text" th:field="*{lastName}" />
+    <br><br>
+    Country Name:
+<!-- here we have hardcoded the each and every country in html file
+<select th:field="*{country}">-->
+<!--        <option th:value="India">India</option>-->
+<!--        <option th:value="Germany">Germany</option>-->
+<!--        <option th:value="US">US</option>-->
+<!--    </select>-->
+    <!-- retreiving countries from app.props-->
+    <select th:field="*{country}">
+        <option th:each="tempCountry:${countries}" th:value="${tempCountry}"
+                th:text="${tempCountry}"/>
+    </select>
+    <br><br>
+    Fav Programming Language:
+    <input type="radio" th:field="*{favlang}" th:each="temp:${favlang}" th:value="${temp}"
+           th:text="${temp}"/>
+    <br><br>
+    Fav OS:
+    <input type="checkbox" th:field="*{systems}" th:each="temp:${systems}" th:value="${temp}"
+           th:text="${temp}"/>
+    <br><br>
+   <input type="submit" value="Submit"/>
+
+</form>
+
+<!--here we are going to send something to processForm method
+here student is name of the model attribute and then we have to use same name which we passed in model.addattribute
+and the th:field is the parameter where we pass object.field name and here * takes the object name so here it is student.firstName
+and when the form is loaded fields are prepopulated using student.getFirstName()..
+and when form is submitted it calls student.setFirstName()
+
+So when form is submitted Spring MVC will create a new Student instance and add to the model and then calls setter methods on object
+
+Here we have also added a drop down called country and in the option as we have given value = which is the value of the field name that will be passed
+when student selects that and the parameter to option is the display name
+
+Have added the radio buttons functionality
+
+Have added the checkbox functionality , so here there is a note if the Values has spaces we have to mention like this
+"'Microsoft Windows'"
+-->
+</body>
+</html>

@@ -8,3 +8,4 @@ spring-boot-rest-crud : Implements CRUD by exposing endpoints without db connect
 spring-boot-rest-crud-datajpa - Implements CRUD by exposing endpoints and connecting to DB using Standard JPA Implementation and also using Spring Data JPA project
 spring-boot-rest-crud-spring-data-rest - Implements CRUD by exposing endpoints using Spring Data REST project and connecting to DB
 spring-boot-rest-security-Implemented Spring Boot Security Concepts - In Memory Security without accessing db(passwords - both in plain text, bcrypt), Security using db(JDBC) and passwords storage in plaintext and bcryted, Custom Tables Implementation.
+spring-boot-mvc- Implemented Spring MVC with integration with Thymeleaf and contains data binding concepts through HTML forms
