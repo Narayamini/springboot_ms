@@ -73,7 +73,10 @@ public @interface CourseCode { -> this is how we define custom annotation in Jav
 public String value() default "YAM" -> if no value is passed we consider the default value
 public String message() default "must start with YAM"
 
-
+Thymeleaf expressions which can help build the HTML form:
+th:action -> Location to send form data
+th:field -> Bind input field to a property on model attribute
+th:object -> Reference to model attribute ..
 
 
 
