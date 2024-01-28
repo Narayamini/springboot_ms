@@ -1,0 +1,39 @@
+Proxy design pattern:
+
+Aspect : module of code for a cross cutting concern
+Advise : What action is taken and when it should be applied
+Join Point: When to apply code during program execution
+Point cut: A predicate expression for where advise should be applies
+
+Advise Types:
+Before advice:That means run the code before the actual method executes.
+After finally advice:That means run the code after the method finishes,like the finally block of a try catch.
+After returning advice:After the method for a successful execution.
+After throwing advice:meaning run this code after the method finishes,if an exception is thrown.
+Around advice:So you can run the code before and after the method.
+
+Weaving: Connecting aspects to target objects to create an advised object
+Different types of weaving: compile time, load time or run time
+Regarding performance: run time weaving is the slowest
+
+AOP frameworks: two leading are Spring AOP and AspectJ
+So the advantages of using Spring AOP is that it's simpler to use than AspectJ, it makes use of the Proxy pattern, and you can easily migrate to AspectJ by making use of the @Aspect annotations.
+Now, some disadvantages with the Spring AOP is that it only supports method-level join points and you can only apply aspects to beans that have been created by the Spring app context. And also there's a minor performance cost for aspect execution because Spring AOP makes use of run-time weaving,But it's minor, very negligible.
+
+So AspectJ, the advantages here,
+it supports all of the join points.
+It works with any POJO,not just the bean from the Spring app context,but any POJO.
+AspectJ also has faster performance compared to Spring AOP
+and AspectJ has complete AOP support,the full stack, the full API.
+But some disadvantages here with AspectJ
+is that the compile-time weaving requires an extra compilation step.So it's faster,but you have to do an extra compile step
+for the compile-time weaving.
+And then also AspectJ pointcut syntax can become very complex very quick.
+
+So in short, AspectJ is very fast,but there's a lot of complexity involved with it.
+Comparing Spring AOP and AspectJ.
+So Spring AOP only supports method-level join points and run-time weaving which is a little bit slower than AspectJ.
+AspectJ supports all of the join points,method-level, constructor, and field,and also various weaving levels,
+compile-time, post compile-time, and load-time.So that's kinda one slide there to kinda put it togetherbetween the two.
+
+Spring AOP is really just a lightweight implementation of AOP.

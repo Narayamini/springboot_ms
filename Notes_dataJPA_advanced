@@ -1,0 +1,43 @@
+Mappings:
+ONE TO ONE
+ONE TO MANY -> MANY TO ONE
+MANY TO MANY
+Cascade Concept-if we delete the instructor in table 1 we have to delete that in table 2 of instructor detail as well
+Fetch Types:
+Eager vs Lazy Loading
+Uni directional and Bi directional
+Foreign Key - field in one table which refers to the primary key in another table
+
+Entity Lifecycle - Set of states entity can go through Hibernate
+Detach : Basically, if an entity is detached,then it's not associated with a Hibernate session.
+Merge:so if an instance is detached from the session, then we can actually merge it to reattach it to the session.
+Persist:We can make use of persist,basically allowing you to take a new instance and transition it to a managed state,and basically, on your next flush or commit,it'll actually save it to the database.
+Remove:Then we have the idea of remove,so that basically takes a managed entity and remove itso the next flush commit will actually delete it
+from the database
+Refresh: then we have the idea of refresh.So refresh allows you to kind of reloador sync your object with data from the database.This actually helps you prevent
+from having stale data in memory,which is different from data in the actual database.
+
+Example: So we have this state where an object is a new object we call a new keyword or it's transient.Then what we'll do is we can actually save it or persist it,
+and at that point,it's like a persistent object or a managed object.If we wanted to, we could do a rollback or create a new object, and it's in the new/transient state.
+If we wanted to sync the object with information from the database, then we can do a refresh.
+Next, if we have a persistent object,we can do a commit, rollback, or close,and that'll actually make that object detached,
+so it's not associated with a given Hibernate session.If we'd like to reattach that object to the Hibernate session, then we simply get a reference
+to that object, and we simply do a merge on it.If we do a delete or remove,then that object is now in the removed state.We could also do a rollback or persist
+to actually make it available,and make it back into a managed state.Now, up top here in the top right,we can do a commit on a removed object,
+so now it's removed from the database,and now it's just in a transient state.And then we could say rollback,so that'll basically take the object
+and move it back to the detached state.
+
+Now with cascading, This basically means you're going to applythe same operation to related entities.So here we have our instructor,
+and then we have instructor detail,so if we were to actually save our instructor,then it'll also save that instructor detail.
+
+@One to One: Cascade Types:
+PERSIST:The first cascade type is PERSIST.So if an entity is persistent,then the related entity will also be persistent.So in our case, when the instructor is saved,then the related item, the instructor detail,will also be saved.
+REMOVE: We also have the cascade type of REMOVE.So if the entity is removed or deleted,the related entity will also be deleted.Again, you delete the instructor,we delete the related item, instructor detail.
+REFRESH: There's also REFRESH, so you can refresh the entity,meaning sync it from the database,and the related item will also be refreshed.
+DETACH: If entity is detached (not associated with the session ) then related entity will also be detached
+MERGE: If entity is merged the related entity will also be merged
+ALL:finally ALL.So ALL is a combination of all of the above cascade types together.
+So here's how we configure a cascade type."cascade=CascadeType.ALL."That means that all operations we apply to our entity,like instructor, it'll also cascade to our related entity,
+instructor detail.So they'll applies for a saving, deleting, and so on.
+
+Now, it's really important to note,by default, no operations are cascaded,so if you don't specify cascade,then none of the operations will cascade.
