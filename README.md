@@ -9,5 +9,6 @@ spring-boot-rest-crud-datajpa - Implements CRUD by exposing endpoints and connec
 spring-boot-rest-crud-spring-data-rest - Implements CRUD by exposing endpoints using Spring Data REST project and connecting to DB
 spring-boot-rest-security-Implemented Spring Boot Security Concepts - In Memory Security without accessing db(passwords - both in plain text, bcrypt), Security using db(JDBC) and passwords storage in plaintext and bcryted, Custom Tables Implementation.
 spring-boot-mvc- Implemented Spring MVC with integration with Thymeleaf and contains data binding concepts through HTML forms
-spring-boot-rest-mvc-validation- Implemented Validation concepts which include using spring provided validation annotations and also defining custom validation
-spring-boot-spring-mvc-crud-Implemented completed end to end Employee repository use case with add, list, update, delete employees functionality using web pages, db.
+spring-boot-rest-mvc-validation- Implemented Validation concepts which include using spring provided validation annotations and also defining custom validation, includes creating custom annotations
+spring-boot-spring-mvc-crud - Implemented completed end to end Employee repository use case with add, list, update, delete employees functionality using web pages, db.
+spring-boot-aop - Implemented Aspect Oriented Programming Concepts which include Pointcut expressions, aspects, join points..

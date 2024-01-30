@@ -8,7 +8,7 @@ Point cut: A predicate expression for where advise should be applies
 Advise Types:
 Before advice:That means run the code before the actual method executes.
 After finally advice:That means run the code after the method finishes,like the finally block of a try catch.
-After returning advice:After the method for a successful execution.
+After returning advice:After the method for a successful execution with no exceptions and here whatever we return that will be returned to the calling program
 After throwing advice:meaning run this code after the method finishes,if an exception is thrown.
 Around advice:So you can run the code before and after the method.
 
@@ -37,3 +37,51 @@ AspectJ supports all of the join points,method-level, constructor, and field,and
 compile-time, post compile-time, and load-time.So that's kinda one slide there to kinda put it togetherbetween the two.
 
 Spring AOP is really just a lightweight implementation of AOP.
+
+Point cut expressions: tell spring aop to perform the advise when these conditions are met
+There are different types of pointcut expressions, will start with execution pointcuts
+Applies to execution of methods
+Match on method name:
+Pointcut expression language:
+execution(modifiers-pattern(spring aop supports only public)? return-type pattern
+declaring-type-pattern(class name)?method-name-pattern(param-pattern) throws-pattern?)
+
+if the pattern has question mark that means it is optional
+
+For param pattern: ()-> matches a method with no args
+(*)-> matches a method with one argument of any type
+(..)-> matches a method with 0 or more arguments of any type
+
+Pointcut expression to match any method in a given package
+com.example.demo.*.*(..), we have to give the fully qualified classname while passing the param
+
+Declaring pointcut once and re-using the same for all the advises
+@Pointcut("execution(* com.example.demo.*.*(..))")
+private void anyMethodName(){}
+
+Combining pointcuts:
+Combine pointcut expressions using logic operators
+AND(&&), OR(||), NOT(!)
+
+Order of Advises:
+Place advises in seperate aspects and we have to add @Order annotation and lower numbers have high precedence
+Order range : Integer.MIN_Value to Integer.MAX_Value that means - numbers are also allowed and the order need not be consecutive
+if orders have same number then randomly one is picked up by spring
+
+Join Points:
+This is used for logging method params and method signature
+
+ProceedingJoinPoint: When using the @Around advice , we will get a reference to a proceeding join point
+this will handle to the target method and our code can use the proceeding join point to execute the
+target method
+
+
+
+
+
+
+
+
+
+
+
