@@ -12,3 +12,4 @@ spring-boot-mvc- Implemented Spring MVC with integration with Thymeleaf and cont
 spring-boot-rest-mvc-validation- Implemented Validation concepts which include using spring provided validation annotations and also defining custom validation, includes creating custom annotations
 spring-boot-spring-mvc-crud - Implemented completed end to end Employee repository use case with add, list, update, delete employees functionality using web pages, db.
 spring-boot-aop - Implemented Aspect Oriented Programming Concepts which include Pointcut expressions, aspects, join points..
+spring-boot-mvc-crud-aop-demo-employees - Implemented AOP with integration with MVC and JPA
