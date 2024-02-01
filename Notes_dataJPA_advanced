@@ -1,6 +1,6 @@
 Mappings:
 ONE TO ONE
-ONE TO MANY -> MANY TO ONE
+ONE TO MANY <-> MANY TO ONE
 MANY TO MANY
 Cascade Concept-if we delete the instructor in table 1 we have to delete that in table 2 of instructor detail as well
 Fetch Types:
