@@ -7,6 +7,7 @@ spring-boot-maven-plugin in pom file - helps us to package our code to war or ja
 
 @Value - to inject the property from application.properties to the class, example as below
 application.properties - my.name=Harry Potter
+
 Class level injection -
 @Value("${my.name}")
 private String myName;
@@ -22,6 +23,7 @@ Additional settings in intellij to enable devtools apart from adding the depende
 
 spring-boot-actuator(we have to add the dependency) - exposes endpoints to monitor health and manage our application
 It automatically exposes endpoints for metrics and the endpoints are prefixed with /actuator:
+
 /health: health info of app-gives status whether app is up or down , we can also customize the health status based on business logic, by default only health endpoint is exposed
 /info: Provides more info on app and the behaviour is also customisable, to expose info endpoint we have to add management.endpoints.web.exposure.include=health,info and management.info.env.enabled=true in app.props
 default info is empty and we have to customise this by adding following in app.props, anything after info. props is considered by the endpoint
